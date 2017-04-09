@@ -25,5 +25,4 @@ public class EndpointsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("3.141592653589793"));
     }
-
 }
