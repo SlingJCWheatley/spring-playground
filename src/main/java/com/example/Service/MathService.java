@@ -35,4 +35,11 @@ public class MathService {
         }
         return String.format("%s = %s", value, sum);
     }
+
+    @RequestMapping("/volume/{length}/{width}/{height}")
+    public String volume(@PathVariable Integer length, @PathVariable Integer width,
+                         @PathVariable Integer height) {
+        return String.format("The volume of a %sx%sx%s rectangle is %s",
+                length, width, height, length * width * height);
+    }
 }

@@ -42,4 +42,13 @@ public class MathServiceUnitTest {
         assertThat("Sum failure", "4 + 5 + 6 + 7 + 8 = 30"
                 .equals(mathService.sum(n)));
     }
+
+    @Test
+    public void testMathVolume() throws Exception {
+        assertThat("Volume failed 3x4x5", "The volume of a 3x4x5 rectangle is 60"
+                .equals(mathService.volume(3,4,5)));
+
+        assertThat("Volume failed 6x7x8", "The volume of a 6x7x8 rectangle is 336"
+                .equals(mathService.volume(6,7,8)));
+    }
 }
