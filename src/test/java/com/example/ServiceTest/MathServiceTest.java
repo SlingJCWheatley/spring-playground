@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -65,5 +66,40 @@ public class MathServiceTest {
         this.mvc.perform(patch("/math/volume/6/7/8").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
                 .andExpect(content().string("The volume of a 6x7x8 rectangle is 336"));
+    }
+
+    @Test
+    public void testMathArea() throws Exception {
+
+        // circle test
+        MockHttpServletRequestBuilder circle = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "circle")
+                .param("radius", "4");
+
+        this.mvc.perform(circle)
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.format("Area of a circle with a radius of 4 is 50.26548")));
+
+        // rectangle test
+        MockHttpServletRequestBuilder rectangle = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "rectangle")
+                .param("width", "4")
+                .param("height", "7");
+
+        this.mvc.perform(rectangle)
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.format("Area of a 4x7 rectangle is 28")));
+
+        // invalid test
+        MockHttpServletRequestBuilder invalid = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "rectangle")
+                .param("radius", "5");
+
+        this.mvc.perform(invalid)
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.format("Invalid")));
     }
 }

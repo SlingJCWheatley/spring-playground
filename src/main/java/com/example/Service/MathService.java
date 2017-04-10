@@ -1,6 +1,7 @@
 package com.example.Service;
 
-
+import com.example.AreaObject;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -41,5 +42,10 @@ public class MathService {
                          @PathVariable Integer height) {
         return String.format("The volume of a %sx%sx%s rectangle is %s",
                 length, width, height, length * width * height);
+    }
+
+    @PostMapping(value = "/area", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String area(AreaObject areaObject) {
+        return areaObject.toString();
     }
 }
